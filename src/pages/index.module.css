@@ -8,6 +8,12 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  height: 85vh;
+
+  /* background: none; */
+  background-image: url("https://64.media.tumblr.com/741058c6dfcdeb108cff38afc4f89ce6/tumblr_oy41evg5Xz1wvt8q5o1_1280.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media screen and (max-width: 996px) {
