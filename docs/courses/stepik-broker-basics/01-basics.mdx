@@ -2,13 +2,20 @@
 sidebar_position: 2
 ---
 
+import BorderBox from "@site/src/components/BorderBox";
 import Admonition from "@theme/Admonition";
 
 # Модуль 1. Основы брокеров
 
 ## Базовые понятия
 
-Поставщик (Producer) - сервис, передающий сообщения в брокер.
+<BorderBox>
+  ```mermaid
+graph LR;
+  Producer --> |Message| Broker;
+  Broker --> |Message| Consumer;
+```
+</BorderBox>
 
 <Admonition icon="Поставщик (Producer)" title="" type="note">
   Сервис, передающий сообщения в брокер.
@@ -28,47 +35,121 @@ import Admonition from "@theme/Admonition";
   Сервис, получающий сообщение из брокера.
 </Admonition>
 
-```mermaid
-graph TD;
-direction LR
-  Producer-->Broker;
-  Broker-->|✅ Message|Consumer;
-```
+## Условия поставки
+
+<Admonition icon="Условие поставки" title="" type="note">
+  Порядок, в котором сообщения попадают и извлекаются из очереди.
+</Admonition>
+
+Вот основные виды условий поставки:
+
+### FIFO
+
+<Admonition
+  icon="FIFO (First In — First Out)"
+  title=""
+  type="note"
+>
+
+- **Первым пришел, первым ушел**. Сообщения обрабатываются в том порядке, в котором они попали в очередь.
+- **Пример**. Пусть продьюсер отправил в очередь сначала сообщение M1, потом M2, потом M3. Консьюмер в таком случае получит их в том же порядке: сначала M1, потом M2, затем M3.
+- **Где встречается**: обработка заказов, финансовые операции, последовательные изменения состояния.
+
+</Admonition>
+
+<BorderBox>
 
 ```mermaid
-flowchart TD
+sequenceDiagram
+    participant Producer
+    participant Broker@{ "type" : "queue" }
+    participant Consumer
 
-subgraph Z[" "]
-direction LR
-  A --> B
-  B --> C
-end
+    Note over Producer,Broker: Producer отправляет сообщения
+    Producer->>Broker: ✉️ M1
+    Producer->>Broker: ✉️ M2
+    Producer->>Broker: ✉️ M3
 
-subgraph ZA[" "]
-direction RL
-    D-->E
-    E-->F
-end
-
-Z --> ZA
+    Note over Broker,Consumer: Broker отдает сообщения в том <br>порядке, в котором они пришли
+    Broker->>Consumer: ✉️ M1
+    Broker->>Consumer: ✉️ M2
+    Broker->>Consumer: ✉️ M3
 ```
+
+</BorderBox>
+
+### LIFO
+
+<Admonition
+  icon="LIFO (Last In — First Out)"
+  title=""
+  type="note"
+>
+
+- **Последним пришёл, первым ушёл**. Какое сообщение пришло последним, то и обрабатывается в первую очередь.
+- **Пример**. Пусть продьюсер отправил в очередь сначала сообщение M1, потом M2, потом M3. Консьюмер в таком случае получит их в обратном порядке: сначала M3, потом M2, затем M1.
+- **Где встречается**: обработка задач с приоритетом «самое свежее важнее»: например, отмена предыдущих действий или интерактивные сценарии, где актуальность важнее хронологии.
+
+</Admonition>
+
+<Admonition
+  icon=""
+  title=""
+  type="note"
+>
+LIFO встречается редко в брокерах сообщений.
+И обычно реализуется не как базовое свойство очереди, а как частный приём на уровне логики обработки
+
+</Admonition>
+
+<BorderBox>
 
 ```mermaid
+sequenceDiagram
+    participant Producer
+    participant Broker@{ "type" : "queue" }
+    participant Consumer
 
-block-beta
-   columns 5
-   A space B space C
-   space space space space space
-   F space E space D
+    Note over Producer,Broker: Producer отправляет сообщения
+    Producer->>Broker: ✉️ M1
+    Producer->>Broker: ✉️ M2
+    Producer->>Broker: ✉️ M3
 
-   A --> B
-   B --> C
-   C --> D
-   D --> E
-   E --> F
+    Note over Broker,Consumer: Broker отдаёт сначала <br>те сообщения, которые <br> пришли последними
+    Broker->>Consumer: ✉️ M3
+    Broker->>Consumer: ✉️ M2
+    Broker->>Consumer: ✉️ M1
 ```
 
-import simpleGraph from "!!raw-loader!./test.drawio";
-import Drawio from "@theme/Drawio";
+</BorderBox>
 
-<Drawio content={simpleGraph} />
+## Модели потребления
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th style={{ width: "10%" }}></th>
+      <th style={{ width: "33%" }}>Один потребитель</th>
+      <th style={{ width: "33%" }}>Множество потребителей</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Удаление при чтении</strong>
+      </td>
+      <td>Queue (классический брокер)</td>
+      <td>Pub-Sub (классический брокер)</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Не удаляются при чтении</strong>
+      </td>
+      <td style={{ backgroundColor: "#FF000015" }}>
+        Модель с одним потребителем и чтением без удаления практически не
+        используется. Как правило применяют Log
+      </td>
+      <td>Log (Kafka)</td>
+    </tr>
+  </tbody>
+</table>
