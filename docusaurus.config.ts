@@ -10,6 +10,14 @@ const config: Config = {
     "Summaries of materials devoted to Business and Systems Analysis, UI/UX, Software Architecture",
   favicon: "img/logo.jpg",
 
+  markdown: {
+    mermaid: true,
+  },
+
+  themes: ["@docusaurus/theme-mermaid"],
+
+  plugins: [["drawio", {}]],
+
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
