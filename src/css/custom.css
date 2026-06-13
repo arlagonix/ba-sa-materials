@@ -15,6 +15,14 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --ifm-font-family-base:
+    "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --ifm-font-family-monospace:
+    "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --doc-sidebar-width: 360px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -32,3 +40,11 @@
 .admonition .admonitionIcon {
   display: none;
 }
+
+/* .docs-wrapper .theme-doc-markdown,
+.docs-wrapper .theme-doc-breadcrumbs,
+.docs-wrapper .pagination-nav {
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+} */

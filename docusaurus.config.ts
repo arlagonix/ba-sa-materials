@@ -16,7 +16,11 @@ const config: Config = {
 
   themes: ["@docusaurus/theme-mermaid"],
 
-  plugins: [["drawio", {}]],
+  plugins: [["drawio", {}], "docusaurus-plugin-zooming"],
+
+  stylesheets: [
+    "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+  ],
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -51,6 +55,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: "./sidebars.ts",
+          routeBasePath: "summaries",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:

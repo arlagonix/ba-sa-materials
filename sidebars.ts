@@ -20,13 +20,7 @@ const sidebars: SidebarsConfig = {
   // ],
 
   // But you can create a sidebar manually
-  testSidebar: [
-    {
-      type: "category",
-      label: "Tutorial",
-      items: ["tutorial-basics/create-a-document"],
-    },
-  ],
+  testSidebar: [],
 };
 
 export default sidebars;
