@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktmp=self.webpackChunktmp||[]).push([["3220"],{1912(a){a.exports=JSON.parse('{"blogBasePath":"/ba-sa-materials/blog","blogTitle":"Blog","authorsListPath":"/ba-sa-materials/blog/authors"}')}}]);
