@@ -46,8 +46,9 @@ export default function Home(): ReactNode {
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
     >
-      <HomepageHeader />
-      <main>{/* <HomepageFeatures /> */}</main>
+      <main className={styles.homeMain}>
+        <HomepageHeader />
+      </main>
     </Layout>
   );
 }
