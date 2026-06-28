@@ -41,10 +41,10 @@
   display: none;
 }
 
-/* .docs-wrapper .theme-doc-markdown,
+.docs-wrapper .theme-doc-markdown,
 .docs-wrapper .theme-doc-breadcrumbs,
 .docs-wrapper .pagination-nav {
   max-width: 768px;
   margin-left: auto;
   margin-right: auto;
-} */
+}
